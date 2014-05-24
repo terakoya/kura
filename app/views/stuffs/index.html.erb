@@ -7,9 +7,6 @@
     <tr>
       <th>Title</th>
       <th>Expires at</th>
-      <th>Unlisted</th>
-      <th>Filename</th>
-      <th>Encrypted password</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,9 +16,6 @@
       <tr>
         <td><%= stuff.title %></td>
         <td><%= stuff.expires_at %></td>
-        <td><%= stuff.unlisted %></td>
-        <td><%= stuff.filename %></td>
-        <td><%= stuff.encrypted_password %></td>
         <td><%= link_to 'Show', stuff %></td>
       </tr>
     <% end %>
