@@ -51,6 +51,6 @@ class StuffsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stuff_params
-      params.require(:stuff).permit(:title, :unlisted, :file)
+      params.require(:stuff).permit(:title, :unlisted, :file, :password)
     end
 end
