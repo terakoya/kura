@@ -1,5 +1,5 @@
 class StuffsController < ApplicationController
-  before_action :set_stuff, only: [:show, :edit, :update, :destroy]
+  before_action :set_stuff, only: [:show, :edit, :update, :destroy, :download]
 
   # GET /stuffs
   # GET /stuffs.json
@@ -37,6 +37,10 @@ class StuffsController < ApplicationController
       format.html { redirect_to stuffs_url, notice: 'Stuff was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def download
+    send_file @stuff.filepath
   end
 
   private
