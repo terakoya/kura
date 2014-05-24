@@ -47,6 +47,6 @@ class StuffsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stuff_params
-      params.require(:stuff).permit(:title, :expires_at, :unlisted, :filename, :encrypted_password)
+      params.require(:stuff).permit(:title, :unlisted, :file)
     end
 end
