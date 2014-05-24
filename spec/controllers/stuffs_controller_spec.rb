@@ -23,10 +23,14 @@ describe StuffsController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # Stuff. As you add validations to Stuff, be sure to
   # adjust the attributes here as well.
+  let(:file) do
+    fixture_file_upload('a.png')
+  end
+
   let(:valid_attributes) do
     {
       title: "MyString",
-      file: fixture_file_upload('a.png'),
+      file: file,
     }
   end
 
@@ -103,4 +107,18 @@ describe StuffsController, :type => :controller do
     end
   end
 
+  describe "GET download" do
+    let!(:stuff) do
+      Stuff.create!(valid_attributes)
+    end
+
+    context "when stuff exists" do
+      it "sends the file" do
+        get :download, id: stuff.id
+
+        expect(response.code).to eq '200'
+        expect(response.body).to eq File.binread(file.path)
+      end
+    end
+  end
 end
