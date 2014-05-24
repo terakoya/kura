@@ -1,5 +1,7 @@
 <h1>Listing stuffs</h1>
 
+<%= render 'form' %>
+
 <table>
   <thead>
     <tr>
@@ -21,13 +23,7 @@
         <td><%= stuff.filename %></td>
         <td><%= stuff.encrypted_password %></td>
         <td><%= link_to 'Show', stuff %></td>
-        <td><%= link_to 'Edit', edit_stuff_path(stuff) %></td>
-        <td><%= link_to 'Destroy', stuff, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Stuff', new_stuff_path %>

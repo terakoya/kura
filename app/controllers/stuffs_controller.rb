@@ -5,20 +5,12 @@ class StuffsController < ApplicationController
   # GET /stuffs.json
   def index
     @stuffs = Stuff.all
+    @stuff = Stuff.new
   end
 
   # GET /stuffs/1
   # GET /stuffs/1.json
   def show
-  end
-
-  # GET /stuffs/new
-  def new
-    @stuff = Stuff.new
-  end
-
-  # GET /stuffs/1/edit
-  def edit
   end
 
   # POST /stuffs
@@ -32,20 +24,6 @@ class StuffsController < ApplicationController
         format.json { render :show, status: :created, location: @stuff }
       else
         format.html { render :new }
-        format.json { render json: @stuff.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /stuffs/1
-  # PATCH/PUT /stuffs/1.json
-  def update
-    respond_to do |format|
-      if @stuff.update(stuff_params)
-        format.html { redirect_to @stuff, notice: 'Stuff was successfully updated.' }
-        format.json { render :show, status: :ok, location: @stuff }
-      else
-        format.html { render :edit }
         format.json { render json: @stuff.errors, status: :unprocessable_entity }
       end
     end
