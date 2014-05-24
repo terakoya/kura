@@ -3,6 +3,17 @@ class Stuff < ActiveRecord::Base
 
   has_secure_password validations: false
 
+  scope :available, -> { where('? < expires_at', Time.now) }
+
+  def expired?
+    self.expires_at ? (Time.now >= self.expires_at) : false
+  end
+
+  before_validation :assign_expires_at
+  def assign_expires_at
+    self.expires_at ||= Time.now + 1.day
+  end
+
   def file
   end
 

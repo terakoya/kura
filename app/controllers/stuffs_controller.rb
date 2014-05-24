@@ -4,7 +4,7 @@ class StuffsController < ApplicationController
   # GET /stuffs
   # GET /stuffs.json
   def index
-    @stuffs = Stuff.all
+    @stuffs = Stuff.available
     @stuff = Stuff.new
   end
 
@@ -57,6 +57,7 @@ class StuffsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_stuff
       @stuff = Stuff.find(params[:id])
+      raise ActiveRecord::RecordNotFound if @stuff.expired?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Stuff, :type => :model do
-  subject(:stuff) { Stuff.new(title: 'foo') }
+  let(:attrs) { {title: 'foo'} }
+  subject(:stuff) { Stuff.new(attrs) }
 
   describe "#file=" do
     let(:uploaded_file) { double('uploaded_file') }
@@ -33,5 +34,21 @@ describe Stuff, :type => :model do
     it "returns absolute path where the file exists" do
       expect( stuff.filepath ).to eq '/tmp/a.jpg'
     end
+  end
+
+  describe "#expired?" do
+    subject { stuff.expired? }
+    before { stuff.save }
+
+    it { should eq false }
+
+    context "when expired" do
+      let(:attrs) { {title: 'foo', expires_at: 1.day.ago} }
+      it { should eq true }
+    end
+  end
+
+  it "assigns expires_at" do
+    expect(stuff.tap(&:save).expires_at).to be_a_kind_of(Time)
   end
 end
