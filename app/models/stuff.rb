@@ -1,6 +1,8 @@
 class Stuff < ActiveRecord::Base
   validates :filename, presence: true
 
+  has_secure_password validations: false
+
   def file
   end
 
