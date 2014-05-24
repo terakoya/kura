@@ -23,7 +23,12 @@ describe StuffsController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # Stuff. As you add validations to Stuff, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "title" => "MyString" } }
+  let(:valid_attributes) do
+    {
+      title: "MyString",
+      file: fixture_file_upload('a.png'),
+    }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
