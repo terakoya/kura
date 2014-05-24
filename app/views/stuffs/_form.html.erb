@@ -16,20 +16,12 @@
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :expires_at %><br>
-    <%= f.datetime_select :expires_at %>
-  </div>
-  <div class="field">
     <%= f.label :unlisted %><br>
     <%= f.check_box :unlisted %>
   </div>
   <div class="field">
-    <%= f.label :filename %><br>
-    <%= f.text_field :filename %>
-  </div>
-  <div class="field">
-    <%= f.label :encrypted_password %><br>
-    <%= f.text_field :encrypted_password %>
+    <%= f.label :file %><br>
+    <%= f.file_field :file %>
   </div>
   <div class="actions">
     <%= f.submit %>
