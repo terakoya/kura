@@ -3,7 +3,8 @@ class Stuff < ActiveRecord::Base
 
   has_secure_password validations: false
 
-  scope :available, -> { where('? < expires_at', Time.now) }
+  scope :not_expired, -> { where('? < expires_at', Time.now) }
+  scope :available, -> { where(unlisted: false).merge(not_expired) }
 
   def expired?
     self.expires_at ? (Time.now >= self.expires_at) : false
