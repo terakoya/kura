@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @stuff.title %>
+</p>
+
+<p>
+  <strong>Expires at:</strong>
+  <%= @stuff.expires_at %>
+</p>
+
+<p>
+  <strong>Unlisted:</strong>
+  <%= @stuff.unlisted %>
+</p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @stuff.filename %>
+</p>
+
+<p>
+  <strong>Encrypted password:</strong>
+  <%= @stuff.encrypted_password %>
+</p>
+
+<%= link_to 'Edit', edit_stuff_path(@stuff) %> |
+<%= link_to 'Back', stuffs_path %>
