@@ -93,17 +93,58 @@ describe StuffsController, :type => :controller do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested stuff" do
-      stuff = Stuff.create! valid_attributes
-      expect {
-        delete :destroy, {:id => stuff.to_param}, valid_session
-      }.to change(Stuff, :count).by(-1)
+    let!(:stuff) { Stuff.create! attrs }
+    let(:attrs) { valid_attributes }
+    let(:params) { {id: stuff.to_param} }
+
+    context "when stuff has no password" do
+
+      it "returns 404" do
+        delete :destroy, params, valid_session
+        expect(response.code).to eq '404'
+      end
     end
 
-    it "redirects to the stuffs list" do
-      stuff = Stuff.create! valid_attributes
-      delete :destroy, {:id => stuff.to_param}, valid_session
-      expect(response).to redirect_to(stuffs_url)
+    context "when stuff has password" do
+      let(:attrs) do
+        valid_attributes.merge(password: 'secret')
+      end
+
+      context "with correct password" do
+        let(:params) { {id: stuff.to_param, password: 'secret'} }
+
+        it "destroys the requested stuff" do
+          expect {
+            delete :destroy, params, valid_session
+          }.to change(Stuff, :count).by(-1)
+        end
+
+        it "redirects to the stuffs list" do
+          delete :destroy, params, valid_session
+          expect(response).to redirect_to(stuffs_url)
+        end
+      end
+
+      context "with wrong password" do
+        let(:params) { {id: stuff.to_param, password: 'wrong'} }
+
+        it "renders show template again" do
+          delete :destroy, params, valid_session
+          expect(assigns(:stuff)).to eq stuff
+          expect(response).to render_template("show")
+        end
+
+        it "gives error in flash" do
+          delete :destroy, params, valid_session
+          expect(flash[:error]).not_to be_nil
+        end
+
+        it "doesn't destroy" do
+          expect {
+            delete :destroy, params, valid_session
+          }.not_to change(Stuff, :count)
+        end
+      end
     end
   end
 

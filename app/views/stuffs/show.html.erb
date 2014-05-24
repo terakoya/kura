@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<% if flash[:error] %>
+<p class="error"><%= flash[:error] %>
+<% end %>
+
 <p>
   <strong>Title:</strong>
   <%= @stuff.title %>
@@ -9,6 +13,13 @@
   <strong>Expires at:</strong>
   <%= @stuff.expires_at %>
 </p>
+
+<% if @stuff.password_digest %>
+<%= form_tag stuff_path(@stuff), method: :delete do %>
+  <%= password_field_tag :password %>
+  <%= submit_tag 'Delete', confirm: "Are you sure?" %>
+<% end %>
+<% end %>
 
 <%= link_to 'Download', download_stuff_path(@stuff) %><br>
 
