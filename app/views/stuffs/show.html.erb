@@ -10,19 +10,6 @@
   <%= @stuff.expires_at %>
 </p>
 
-<p>
-  <strong>Unlisted:</strong>
-  <%= @stuff.unlisted %>
-</p>
-
-<p>
-  <strong>Filename:</strong>
-  <%= @stuff.filename %>
-</p>
-
-<p>
-  <strong>Encrypted password:</strong>
-  <%= @stuff.encrypted_password %>
-</p>
+<%= link_to 'Download', download_stuff_path(@stuff) %><br>
 
 <%= link_to 'Back', stuffs_path %>
